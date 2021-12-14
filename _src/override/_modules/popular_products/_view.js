@@ -20,40 +20,45 @@ import styles from '@app/_modules/auth_signin/styles';
  * ---------------------------------------------------- *
  */
 
-const Views = ({t,prod,loading,onNavigateToProductDetail}) => {
+const Views = ({t, prod, loading, onNavigateToProductDetail}) => {
   const theme = useTheme();
   const {background} = _.get(theme, 'colors');
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: background}]}>
       <AppBar useBack title="Popular Products" />
       <ScrollView contentContainerStyle={styles.mainContainer}>
-
-      <RenderIf condition={!loading}>
-        <View style={{display:"flex",alignItems:"center",width:"100%",padding:20}}>
-        <Text style={{ fontSize: 20 }}>
-          Popular Products
-        </Text>
-        <FlatList
-          data={prod[0]?.products?.items}
-          keyExtractor={item => item.name}
-          numColumns={2}
-          renderItem={({item}) => {
-            const getFinalPrice = item?.price_range?.maximum_price?.final_price;
-            return (
-              <ProductItem
-                onPress={() => onNavigateToProductDetail(item.url_key)}
-                key={item.url_key}
-                name={item?.name}
-                keyImage={item.url_key}
-                image={item?.image?.url}
-                currency={getFinalPrice.currency}
-                price={getFinalPrice.value}
-              />
-            );
-          }}
-        />
-        </View>
-      </RenderIf>
+        <RenderIf condition={!loading}>
+          <View
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              padding: 20,
+            }}>
+            <Text style={{fontSize: 20}}>Popular Products</Text>
+            <FlatList
+              data={prod[0]?.products?.items}
+              keyExtractor={item => item.name}
+              numColumns={2}
+              renderItem={({item}) => {
+                const getFinalPrice =
+                  item?.price_range?.maximum_price?.final_price;
+                console.log(item.image.url);
+                return (
+                  <ProductItem
+                    onPress={() => onNavigateToProductDetail(item.url_key)}
+                    key={item.url_key}
+                    name={item?.name}
+                    keyImage={item.url_key}
+                    image="https://swift-sprint.testingnow.me/media/catalog/product/placeholder/default/bg.png"
+                    currency={getFinalPrice.currency}
+                    price={getFinalPrice.value}
+                  />
+                );
+              }}
+            />
+          </View>
+        </RenderIf>
       </ScrollView>
     </SafeAreaView>
   );

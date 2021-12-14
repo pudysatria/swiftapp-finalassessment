@@ -1,23 +1,26 @@
 import {gql} from '@apollo/client';
 
 export const GET_BEST_SELLER_PRODUCTS = gql`
-  query getBestSellerProducts{
-    categoryList(filters:{name:{match:"Best seller"}}){
+  query getBestSellerProducts {
+    categoryList(filters: {name: {match: "Best seller"}}) {
       name
-      products{
-        items{
+      products {
+        items {
           url_key
           name
-          image{
+          small_image {
             url
           }
-          price_range{
-            maximum_price{
-              regular_price{
+          image {
+            url
+          }
+          price_range {
+            maximum_price {
+              regular_price {
                 currency
                 value
               }
-              final_price{
+              final_price {
                 currency
                 value
               }
